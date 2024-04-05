@@ -54,6 +54,7 @@ class _ListImageGaleryPageState extends ConsumerState<ListImageGaleryPage> {
         if (imageGaleryState.imagesGalery.isNotEmpty)
           Flexible(
             child: GridView.count(
+              cacheExtent: 850,
               padding: const EdgeInsets.all(10),
               shrinkWrap: true,
               controller: _scrollController,
@@ -64,7 +65,20 @@ class _ListImageGaleryPageState extends ConsumerState<ListImageGaleryPage> {
                 listImagenesGalery.length,
                 (index) {
                   final image = listImagenesGalery[index];
-                  return ItemsImages(image: image);
+                  return InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => CompleteViewImage(imageUrl: image.urls.full, id: image.id),
+                        ),
+                      );
+                    },
+                    child: Hero(
+                      tag: image.id,
+                      child: ItemsImages(image: image),
+                    ),
+                  );
                 },
               ),
             ),

@@ -20,6 +20,7 @@ class ImageGaleryController extends StateNotifier<ImageGaleryState> {
       isLoading = true;
       final pageNew = state.page + 1;
       addPage = pageNew;
+      await Future.delayed(const Duration(seconds: 1));
       final response = await _getImagesGaleryUC.call(ParamModel(page: pageNew));
       if (response.isEmpty) {
         isLoadingFinish = true;
